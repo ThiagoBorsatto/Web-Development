@@ -1,0 +1,27 @@
+body {
+    background: orangered
+}
+
+h3 {
+    background: white;
+    color: blue;
+}
+
+h1 {
+    background: purple;
+    color: yellowgreen; 
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    display: block
+}
+
+.aqua {
+    color: aqua;
+}
+
+p {
+    color: red;
+}
