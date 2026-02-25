@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <main>
+      <h2>Cadastro de Despesas</h2>
+      <form id="despesaForm">
+        <label for="descricao">Descrição</label>
+        <input 
+          type="text" 
+          id="descricao" 
+          name="descricao" 
+          required
+        >
+        <br><br>
+        <label for="valor">Valor (R$)</label>
+        <input 
+          type="number" 
+          step="0.01" 
+          id="valor" 
+          name="valor" 
+          placeholder="Ex.: 25.50" 
+          required
+        >
+        <br><br>
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria" required>
+          <option value="">Selecione...</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Contas">Contas</option>
+          <option value="Outros">Outros</option>
+        </select>
+         <br><br>
+        <button type="submit" id="submitBtn">Cadastrar Despesa!</button>
+      </form>
+    </main>
+
+    <script>
+      const form = document.getElementById('despesaForm');
+      const submitBtn = document.getElementById('submitBtn');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        const despesa = {
+          descricao: form.elements['descricao'].value,
+          valor: form.elements['valor'].value,
+          categoria: form.elements['categoria'].value
+        }
+
+        // Aqui a magica acontece!
+        google.script.run
+          .withSuccessHandler(function(response) {
+            alert(response.message);
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Cadastrar Despesa';
+          })
+          .withFailureHandler(function(response) {
+            alert('Erro: ' + response.message);
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Cadastrar Despesa';
+          })
+          .lancarDespesa(despesa);
+      });
+
+    </script>
+  </body>
+</html>
