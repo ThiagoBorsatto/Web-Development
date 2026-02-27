@@ -2,54 +2,7 @@
 <html>
   <head>
     <base target="_top">
-    <style>
-      body { 
-        font-family: Arial, sans-serif; 
-        text-align: center; 
-        background-color: #f4f4f9; 
-        padding: 50px; 
-      }
-
-      .card { 
-        margin: 0 auto;
-        background: white; 
-        padding: 20px; 
-        border-radius: 10px; 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-        display: flex;
-        flex-direction: column;
-        max-width: 500px;
-        justify-content: center;
-      }
-
-      input { 
-        margin: 5px;
-        padding: 10px; 
-        border: 1px solid #ccc; 
-        border-radius: 5px;
-      }
-
-      button { 
-        padding: 10px 20px; 
-        background-color: #4285f4; 
-        color: white;
-        border: none; 
-        border-radius: 5px; 
-        cursor: pointer;
-        background-color: #28a745;
-        margin: 10px 0;
-      }
-
-      button:hover { 
-        background-color: #357ae8; 
-      }
-
-      #resposta { 
-        margin-top: 20px; 
-        font-weight: bold; 
-        color: #2e7d32; 
-      }
-    </style>
+    <?!= include('stylesheet'); ?>
   </head>
 
   <body>
@@ -58,15 +11,17 @@
       <p>Digite seu nome abaixo:</p>
       <input type="text" id="inputNome" placeholder="Seu nome aqui...">
       <button onclick="enviarParaOServidor()">Enviar</button>
-      
-      <br><br>
+      <div id="resposta"></div>
+    </div>  
 
-      <label for="numero1">Digite um Número Inteiro</label>
+    <div class="card">
+      <h2>Somar Dois Números</h2>
+      <label for="numero1">Digite o primeiro Número</label>
       <input type="number" id="numero1">
-      <label for="numero2">Digite outro Número Inteiro</label>
+      <label for="numero2">Digite o segundo Número</label>
       <input type="number" id="numero2">
       <button onclick="enviarNumerosParaOServidor()">Enviar</button>
-      <div id="resposta"></div>
+      <div id="respostaSomaNumeros"></div>
     </div>
 
     <script>
@@ -85,10 +40,10 @@
         var numero1 = document.getElementById('numero1').value;
         var numero2 = document.getElementById('numero2').value;
 
-        document.getElementById('resposta').innerHTML = "Processando...";
+        document.getElementById('respostaSomaNumeros').innerHTML = "Processando...";
         google.script.run
         .withSuccessHandler(function(respostaDoServidor) {
-        document.getElementById('resposta').innerHTML = respostaDoServidor;
+        document.getElementById('respostaSomaNumeros').innerHTML = respostaDoServidor;
       })
       .somarDoisNumeros(numero1, numero2);
       }
