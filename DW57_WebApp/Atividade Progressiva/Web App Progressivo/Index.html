@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body { 
+        font-family: Arial, sans-serif; 
+        text-align: center; 
+        background-color: #f4f4f9; 
+        padding: 50px; 
+      }
+
+      .card { 
+        margin: 0 auto;
+        background: white; 
+        padding: 20px; 
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        justify-content: center;
+      }
+
+      input { 
+        margin: 5px;
+        padding: 10px; 
+        border: 1px solid #ccc; 
+        border-radius: 5px;
+      }
+
+      button { 
+        padding: 10px 20px; 
+        background-color: #4285f4; 
+        color: white;
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer;
+        background-color: #28a745;
+        margin: 10px 0;
+      }
+
+      button:hover { 
+        background-color: #357ae8; 
+      }
+
+      #resposta { 
+        margin-top: 20px; 
+        font-weight: bold; 
+        color: #2e7d32; 
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h2>Meu Gerador de Saudação</h2>
+      <p>Digite seu nome abaixo:</p>
+      <input type="text" id="inputNome" placeholder="Seu nome aqui...">
+      <button onclick="enviarParaOServidor()">Enviar</button>
+      
+      <br><br>
+
+      <label for="numero1">Digite um Número Inteiro</label>
+      <input type="number" id="numero1">
+      <label for="numero2">Digite outro Número Inteiro</label>
+      <input type="number" id="numero2">
+      <button onclick="enviarNumerosParaOServidor()">Enviar</button>
+      <div id="resposta"></div>
+    </div>
+
+    <script>
+      function enviarParaOServidor() {
+        var nome = document.getElementById('inputNome').value;
+
+        document.getElementById('resposta').innerHTML = "Processando...";
+        google.script.run
+        .withSuccessHandler(function(respostaDoServidor) {
+        document.getElementById('resposta').innerHTML = respostaDoServidor;
+      })
+      .processarDados(nome);
+      }
+
+      function enviarNumerosParaOServidor() {
+        var numero1 = document.getElementById('numero1').value;
+        var numero2 = document.getElementById('numero2').value;
+
+        document.getElementById('resposta').innerHTML = "Processando...";
+        google.script.run
+        .withSuccessHandler(function(respostaDoServidor) {
+        document.getElementById('resposta').innerHTML = respostaDoServidor;
+      })
+      .somarDoisNumeros(numero1, numero2);
+      }
+    </script>
+  </body>
+</html>
