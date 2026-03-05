@@ -1,0 +1,17 @@
+<script>
+  function enviar() {
+    let dados = {
+      nome: document.getElementById('nome').value,
+      email: document.getElementById('email').value,
+      status: document.getElementById('status').value
+    };
+    google.script.run
+      .withSuccessHandler(function(res) {
+        alert(res);
+        nome: document.getElementById('nome').value = "";
+        email: document.getElementById('email').value = "";
+        status: document.getElementById('status').value = "";
+      })
+      .salvarDados(dados);
+  }
+</script>
