@@ -1,0 +1,36 @@
+<script>
+  function enviar() {
+    let dados = {
+      nome: document.getElementById('nome').value,
+      email: document.getElementById('email').value,
+      status: document.getElementById('status').value
+    };
+    google.script.run
+      .withSuccessHandler(function(res) {
+        alert(res);
+        nome: document.getElementById('nome').value = "";
+        email: document.getElementById('email').value = "";
+        status: document.getElementById('status').value = "";
+      })
+      .salvarDados(dados);
+  }
+
+  window.onload = atualizarContador;
+
+  function atualizarContador() {
+    document.getElementById('contador').innerHTML = "Buscando...";
+    document.getElementById('ultimaPessoa').innerHTML = "Buscando...";
+
+    google.script.run
+      .withSuccessHandler(function(valor) {
+        document.getElementById('contador').innerHTML = valor;
+    })
+    .obterTotalCadastros();
+    
+    google.script.run
+      .withSuccessHandler(function(nome) {
+        document.getElementById('ultimaPessoa').innerHTML = nome;
+    })
+    .buscarUltimoNome();
+  }
+</script>
