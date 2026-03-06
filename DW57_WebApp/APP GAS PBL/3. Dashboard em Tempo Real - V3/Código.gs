@@ -1,3 +1,6 @@
+const ss = SpreadsheetApp.getActiveSpreadsheet();
+const aba = ss.getSheets()[0];
+
 function doGet() {
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
@@ -6,11 +9,10 @@ function doGet() {
 }
 
 function salvarDados(obj) {
-  let planilha = SpreadsheetApp.getActiveSpreadsheet();
-  let aba = planilha.getSheets()[0];
-
   if (obj.urgencia === 'Alta') {
     obj.status = 'IMEDIATO';
+  } else {
+    obj.status = 'Pendente';
   }
 
   aba.appendRow([
@@ -31,10 +33,7 @@ function include(filename) {
 }
 
 function obterTotalCadastros() {
-  let ss = SpreadsheetApp.getActiveSpreadsheet();
-  let aba = ss.getSheets()[0];
-
-  var total = aba.getLastRow() - 1;
+  let total = aba.getLastRow() - 1;
 
   return total > 0 ? total : 0;
 }

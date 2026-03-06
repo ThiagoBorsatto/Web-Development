@@ -6,6 +6,7 @@
   </head>
   <body>
     <h3>Cadastro Rápido</h3>
+    
     <div class="campo">
       <label>Nome:</label>
       <input type="text" id="nome">
@@ -14,14 +15,12 @@
       <label>E-mail:</label>
       <input type="email" id="email">
     </div>
-    <div class="campo">
-      <label>Status:</label>
-      <input type="text" id="status" value="Pendente" placeholder="Pendente" disabled>
-    </div>
+
     <div class="campo">
       <label>Telefone:</label>
       <input type="tel" id="telefone">
     </div>
+    
     <div class="campo">
       <label>Nível Urgência:</label>
       <select id="urgencia">
@@ -30,10 +29,12 @@
         <option>Alta</option>
       </select>
     </div>
+    
     <div class="campo">
       <label>Mensagem:</label>
       <textarea id="mensagem"></textarea>
     </div>
+    
     <button id="enviar" onclick="enviar()">Salvar na Planilha</button>
 
     <div id="painel-info">
