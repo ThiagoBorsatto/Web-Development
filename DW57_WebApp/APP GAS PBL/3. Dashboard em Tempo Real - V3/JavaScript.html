@@ -8,10 +8,12 @@
 
     const button = document.getElementById('enviar');
     desativarBtn(button);
+    document.getElementById('enviar').innerHTML = "Enviando...";
 
     if(nome.value === "" || email.value === '' || telefone.value === '' || urgencia.value === '' || mensagem.value === '') {
       alert("Nome, E-mail, Telefone, Nível Urgência ou Mensagem está vazio!")
       ativarBtn(button);
+      document.getElementById('enviar').innerHTML = "Salvar na Planilha";
       
       return;
     }
@@ -33,36 +35,97 @@
         urgencia: urgencia.value = "";
         mensagem: mensagem.value = "";
         ativarBtn(button);
+        document.getElementById('enviar').innerHTML = "Salvar na Planilha";
       })
       .salvarDados(dados);
   }
 
   function desativarBtn(button) {
     button.disabled = true;
-    document.getElementById('enviar').innerHTML = "Enviando...";
   }
   
   function ativarBtn(button) {
     button.disabled = false;
-    document.getElementById('enviar').innerHTML = "Salvar na Planilha";
   }
 
-  window.onload = atualizarContador;
+  window.onload = function() {
+    atualizarContador();
+    metaDeCadastro();
+    cadastradosHoje();
+  };
 
   function atualizarContador() {
-    document.getElementById('contador').innerHTML = "Buscando...";
-    document.getElementById('ultimaPessoa').innerHTML = "Buscando...";
+    let contador = document.getElementById('contador');
+    let ultimaPessoa = document.getElementById('ultimaPessoa');
+    let usuariosGmail = document.getElementById('usuarios-gmail');
+    
+    contador.innerHTML = "Buscando...";
+    ultimaPessoa.innerHTML = "Buscando...";
+    usuariosGmail.innerHTML = "Buscando...";
 
     google.script.run
       .withSuccessHandler(function(valor) {
-        document.getElementById('contador').innerHTML = valor;
+        contador.innerHTML = valor;
+        if (valor < 5) {
+          contador.style.color = 'red';
+        } else if (valor >= 5 && valor < 10) {
+          contador.style.color = 'yellow';
+        } else if (valor >= 10) {
+          contador.style.color = 'green';
+        }
     })
     .obterTotalCadastros();
     
     google.script.run
       .withSuccessHandler(function(nome) {
-        document.getElementById('ultimaPessoa').innerHTML = nome;
+        ultimaPessoa.innerHTML = nome;
     })
     .buscarUltimoNome();
+
+    google.script.run
+      .withSuccessHandler(function(numeroDeGmail) {
+        usuariosGmail.innerHTML = numeroDeGmail;
+      })
+      .buscarNumeroDeGmail();
+  }
+
+  function acharEmailPeloNome() {
+    const nomeDoEmail = document.getElementById('acharEmail');
+    const button = document.getElementById('acharEmail-Btn');
+
+    desativarBtn(button);
+    button.innerHTML = 'Buscando E-mail';
+
+    google.script.run
+      .withSuccessHandler(function(email) {
+        document.getElementById('mensagemAchaEmail').innerHTML = email;
+        ativarBtn(button);
+        button.innerHTML = 'Encontrar E-mail';
+      })
+      .acharEmailPeloNome(nomeDoEmail.value);
+  }
+
+  function metaDeCadastro() {
+    let meta = 20;
+    let progressBarBlue = document.getElementById('progress-bar-blue');
+
+    google.script.run
+      .withSuccessHandler(function(numeroDeCadastros) {
+        let porcentagem = (numeroDeCadastros * 100) / 20;
+
+        progressBarBlue.style.width = porcentagem + "%";
+      })
+      .obterTotalCadastros();
+  }
+
+  function cadastradosHoje() {
+    const cadastroDoDia = document.getElementById('cadastrados-hoje');
+    cadastroDoDia.innerHTML = "Buscando...";
+
+    google.script.run
+      .withSuccessHandler(function(numeroHoje) {
+        cadastroDoDia.innerHTML = numeroHoje;
+      })
+      .buscarCadastroDeHoje();
   }
 </script>

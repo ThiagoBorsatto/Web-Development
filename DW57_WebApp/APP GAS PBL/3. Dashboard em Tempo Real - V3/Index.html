@@ -44,8 +44,26 @@
       <strong>A última pessoa cadastrada foi:</strong>
       <span id="ultimaPessoa">Carregando...</span>
       <br><br>
-      <button id="contador-Btn" onclick="atualizarContador()">Atualizar Lista</button>
+      <strong>Usuários de @gmail:</strong>
+      <span id="usuarios-gmail">Carregando...</span>
+      <br><br>
+      <strong>Meta de Cadastro - 20 cadastros!</strong> 
+      <div id="progress-bar-gray">
+        <div id="progress-bar-blue"></div>
+      </div>
+      <br>
+      <strong>Cadastrados hoje: </strong>
+      <span id="cadastrados-hoje">Carregando...</span>
+      <br><br>
+      <button id="contador-Btn" onclick="atualizarContador(), metaDeCadastro(), cadastradosHoje()">Atualizar Lista</button>
     </div>
+
+    <div class="campo">
+      <label>Encontrar E-mail:</label>
+      <input type="text" id="acharEmail" placeholder="Digite o nome da pessoa!">
+      <span id="mensagemAchaEmail"></span>
+    </div>
+    <button id="acharEmail-Btn" onclick="acharEmailPeloNome()">Encontrar E-mail</button>
 
     <?!= include('JavaScript'); ?>
   </body>
