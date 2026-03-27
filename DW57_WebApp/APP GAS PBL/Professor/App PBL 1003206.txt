@@ -1,0 +1,197 @@
+>>> Cabeçalho da planilha
+Data, Nome, E-mail, Telefone, Status, Urgência, Mensagem
+
+
+>>> Código.gs
+function doGet() {
+  // Renderiza o arquivo HTML
+  return HtmlService.createHtmlOutputFromFile('Index')
+    .setTitle('Meu App Vinculado')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function salvarDados(obj) {
+  // Como o script está vinculado, usamos 'getActiveSpreadsheet'
+  var planilha = SpreadsheetApp.getActiveSpreadsheet();
+  var aba = planilha.getSheets()[0]; // Pega a primeira aba
+
+  // Regra de Ouro: Lógica de Status
+  var status = (obj.urgencia === "Alta") ? "IMEDIATO" : "Pendente";
+  
+  // Adiciona a linha com os dados recebidos do HTML
+  aba.appendRow([
+    new Date(), 
+    obj.nome, 
+    obj.email.toLowerCase(),
+    obj.telefone,
+    status,
+    obj.urgencia,
+    obj.mensagem
+  ]);
+  
+  return "Feedback registrado com sucesso";
+}
+
+function obterTotalCadastros() {
+  var planilha = SpreadsheetApp.getActiveSpreadsheet();
+  let aba = planilha.getSheets()[0];
+
+  let registros = aba.getLastRow() - 1;
+
+  return registros > 0 ? registros: 0;
+}
+
+
+// Desafio Extra
+function buscarUltimoNome() {
+  var planilha = SpreadsheetApp.getActiveSpreadsheet();
+  let aba = planilha.getSheets()[0];
+
+  let nome = aba.getRange(aba.getLastRow(), 2).getValue();
+
+  return nome;
+}
+
+
+>>> Index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+    .campo { margin-bottom: 10px; }
+    label { display: block; font-weight: bold; }
+    input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    button { background: #4285f4; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h3>Cadastro Rápido</h3>
+  <div class="campo">
+    <label>Nome:</label>
+    <input type="text" id="nome">
+  </div>
+  <div class="campo">
+    <label>E-mail:</label>
+    <input type="email" id="email">
+  </div>
+  <div class="campo">
+    <label>Telefone:</label>
+    <input type="tel" id="telefone">
+  </div>
+  <div class="campo">
+      <label>Urgência:</label>
+      <select id="urgencia">
+          <option value="=">Selecione...</option>
+          <option value="Baixa">Baixa</option>
+          <option value="Média">Média</option>
+          <option value="Alta">Alta</option>
+      </select>
+  </div>
+  <div class="campo">
+      <label>Mensagem:</label>
+      <textarea id="mensagem" rows="4" style="width: 100%; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+  </div>
+  <button onclick="enviar()">Salvar na Planilha</button>
+
+  <div id="painel-info" style="margin-top: 20px; padding: 10px; border: 1px dashed #4285f4;">
+    <strong>Total de pessoas cadastradas: </strong>
+    <span id="contador"></span>
+    <br>
+    <button onclick="atualizarContador()" style="background: #34a853;">Atualizar lista</button>
+  </div>
+
+  <div id="painel-info" style="margin-top: 20px; padding: 10px; border: 1px dashed #4285f4;">
+    <strong>Último cadastrado: </strong>
+    <span id="ultimoNome"></span>
+    <br>
+    <button onclick="ultimoCadastrado()" style="background: #34a853;">Último cadastrado</button>
+  </div>
+
+  <script>
+    window.onload = function() {
+      atualizarContador();
+      ultimoCadastrado();
+    } 
+    
+    // Desafio Extra
+    function ultimoCadastrado() {
+      let ultimoNome = document.getElementById("ultimoNome");
+
+      ultimoNome.innerText = "Buscando...";
+
+      google.script.run.withSuccessHandler(
+        function(nome) {
+          ultimoNome.innerText = nome;
+        }
+      ).buscarUltimoNome();
+    }
+
+    function atualizarContador() {
+      let contador = document.getElementById("contador");
+
+      contador.innerText = "Buscando...";
+
+      google.script.run.withSuccessHandler(
+        function(valor) {
+          contador.innerText = valor;
+        }
+      ).obterTotalCadastros();
+    }
+
+    function enviar() {
+      // 1. Coleta os valores dos campos
+      let cmp_nome = document.getElementById('nome');
+      let cmp_email = document.getElementById('email');
+      let cmp_telefone = document.getElementById('telefone');
+      let cmp_urgencia = document.getElementById('urgencia');
+      let cmp_mensagem = document.getElementById('mensagem');
+
+      // --- INÍCIO DA VALIDAÇÃO (DESAFIO 1) ---
+      // Verifica se o nome OU o email estão vazios
+      if (cmp_nome.value  === "" || cmp_email.value === "") {
+        alert("Por favor, preencha todos os campos antes de salvar!");
+        return; // O 'return' para a execução aqui e não envia para o Google Sheets
+      }
+      // --- FIM DA VALIDAÇÃO ---
+
+      // Capturamos o botão para podermos alterá-lo
+      var btn = document.querySelector("button"); 
+
+      var dados = {
+        nome: cmp_nome.value,
+        email: cmp_email.value,
+        telefone: cmp_telefone.value,
+        urgencia: cmp_urgencia.value,
+        mensagem: cmp_mensagem.value
+      };
+
+      // --- INÍCIO DO FEEDBACK (DESAFIO 2) ---
+      // Desabilitamos o botão e mudamos o texto
+      btn.disabled = true;
+      btn.innerText = "Enviando para a Planilha...";
+      btn.style.backgroundColor = "#ccc"; // Opcional: muda a cor para cinza
+      // --- FIM DO FEEDBACK ---
+
+      // Chama a função salvarDados do arquivo Código.gs
+      google.script.run
+        .withSuccessHandler(function(res) {
+          alert(res);
+
+          cmp_nome.value = "";
+          cmp_email.value = "";
+          cmp_telefone.value = "";
+          cmp_urgencia.value = "";
+          cmp_mensagem.value = "";
+
+        // --- RESTAURANDO O BOTÃO ---
+        // Após o sucesso, o botão precisa voltar a funcionar
+        btn.disabled = false;
+        btn.innerText = "Salvar na Planilha";
+        btn.style.backgroundColor = "#4285f4"; // Volta para a cor original
+        })
+        .salvarDados(dados);
+    }
+  </script>
+</body>
+</html>
