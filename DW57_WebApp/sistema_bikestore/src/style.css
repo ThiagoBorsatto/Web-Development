@@ -1,0 +1,90 @@
+body {
+  font-family: sans-serif;
+  background-color: #f7f0ba;
+  padding: 20px;
+}
+
+.painel {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #e0dba4;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.titulo-principal {
+  color: #53a08e;
+  border-bottom:  3px solid #53a08e;
+}
+
+.descricao {
+  text-align: justufy;
+  line-height: 1.5;
+  color: #53a08e;
+}
+
+h2 {
+  color: #53a08e;
+  border-bottom:  3px solid #53a08e;
+}
+
+.container-dashboard {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.menu-lateral {
+  flex: 1;
+}
+
+.conteudo-dados {
+  flex: 3;
+}
+
+.lista-categorias {
+  list-style-type: square;
+  background: #a9cba6;
+  padding: 15px 15px 15px 35px;
+  border-left: 4px solid #53a08e;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: #fff;
+}
+
+.lista-categorias li {
+  margin-bottom: 10px;
+}
+
+.tabela-moderna {
+width: 100%;
+border-spacing: 0;
+background: #a9cba6;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tabela-moderna th {
+background: #53a08e;
+color: white;
+padding: 15px;
+text-align: left;
+}
+
+.tabela-moderna td {
+padding: 15px;
+border-bottom: 1px solid #dee2e6;
+  color: #fff;
+}
+
+.tabela-moderna tr:nth-child(even) {
+background: #7ebea3;
+}
+
+.tabela-moderna tr:hover {
+background: #e2e6ea;
+cursor: pointer;
+transition: 0.3s;
+}
