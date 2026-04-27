@@ -1,0 +1,26 @@
+<div class="container">
+  <!-- Card de Resumo -->
+  <div class="card-resumo">
+    <h2>📦 Estoque Atual</h2>
+    <h1 id="valorInventario">R$ 0,00</h1>
+    <p id="totalItens">0 itens cadastrados</p>
+    <div id="alertaGeral" class="alerta oculto">
+      ⚠️ Atenção: Há itens com estoque crítico!
+    </div>
+  </div>
+
+  <!-- Formulário de Cadastro -->
+  <div class="form-cadastro">
+    <input type="text" id="inputNome" placeholder="Nome do produto (ex: Luvas)">
+    <input type="number" id="inputQtd" placeholder="Quantidade" min="1">
+    <input type="number" id="inputPreco" placeholder="Custo unitário (R$)" step="0.01" min="0">
+    <button onclick="adicionarProduto()">+ Adicionar</button>
+  </div>
+
+  <!-- Lista de Produtos -->
+  <div class="lista-container">
+    <h3>Itens no Estoque</h3>
+    <ul id="listaProdutos" class="lista-produtos"></ul>
+    <p id="mensagemVazia" class="vazio">Nenhum produto cadastrado ainda.</p>
+  </div>
+</div>
