@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>JS - Projeto Final - Template</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="container">
+  <!-- Card de Resumo -->
+  <div class="card-resumo">
+    <h2>Estoque Atual de Bicicletas</h2>
+    <h1 id="valorInventario">R$ 0,00</h1>
+    <p id="totalItens">Cadastro de Itens: 0</p>
+    <p id="itensTotaisEmEstoque">Total de itens cadastrados: 0</p>
+    <div id="alertaGeral" class="alerta oculto">
+      Atenção: Há itens com estoque crítico!
+    </div>
+  </div>
+
+  <!-- Formulário de Cadastro -->
+  <div class="form-cadastro">
+    <input type="text" id="inputNome" placeholder="Nome do produto (ex: Luvas)">
+    <select id="selectMarca">
+      <option value="" disabled selected hidden>Marca</option>
+      <option value="specialized">Specialized</option>
+      <option value="trek">Trek</option>
+      <option value="cannondale">Cannondale</option>
+      <option value="Giant">Giant</option>
+      <option value="caloi">Caloi</option>
+      <option value="rino">Rino</option>
+      <option value="ksw">KSW</option>
+    </select>
+    <input type="number" id="inputQtd" placeholder="Quantidade" min="1">
+    <input type="number" id="inputPreco" placeholder="Custo unitário (R$)" step="0.01" min="0">
+    <button onclick="adicionarProduto()">+ Adicionar</button>
+  </div>
+
+  <!-- Lista de Produtos -->
+  <div class="lista-container">
+    <h3>Itens no Estoque</h3>
+    <ul id="listaProdutos" class="lista-produtos"></ul>
+    <p id="mensagemVazia" class="vazio">Nenhum produto cadastrado ainda.</p>
+  </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
