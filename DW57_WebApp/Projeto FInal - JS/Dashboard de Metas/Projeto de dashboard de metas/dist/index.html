@@ -12,21 +12,24 @@
   <div class="container">
   <div class="placar-de-resumo">
     <div class="placares">
-      <h1>Resumo de Metas</h1>
+      <h1>RESUMO DE METAS</h1>
       <h2 id="total-almejado">Total Almejado: R$ 0,00</h2>
       <h2 id="total-alcancado">Total Alcançado: R$ 0,00</h2>
     </div>
   </div>
   <div class="formulario-de-entrada">
+    <h3 id="informacoes-meta-h3">Informações da Meta</h3>
     <input type="text" id="titulo-da-meta" placeholder="Título da Meta"/>
     <input type="number" id="valor-alvo" placeholder="Valor Alvo em (R$)"/>
     <input type="number" id="valor-alcancado" placeholder="Valor Alcançado em (R$)"/>
     <input class="hidden" type="text" id="id-da-meta" placeholder="ID da Meta"/>
-    <button onclick="createMeta()">Salvar Meta</button>
-    <button class="hidden" onclick="">Cancelar Edição</button>
+    <button id="botao-de-salvar" class="botao-de-salvar" onclick="createMeta()">Salvar Meta</button>
+    <button id="botao-de-cancelar-edicao" class="hidden botao-de-cancelar-edicao" onclick="cancelarEdicao()">Cancelar Edição</button>
   </div>
   <div class="lista-reativa">
-    <ul class="lista-para-injecao"></ul>
+    <h3>Metas</h3>
+    <ul id="lista-para-injecao" class="lista-para-injecao"></ul>
+    <p id="sem-metas" class="sem-metas">Nenhuma meta definida!</p>
   </div>
 </div>
     <script  src="./script.js"></script>
