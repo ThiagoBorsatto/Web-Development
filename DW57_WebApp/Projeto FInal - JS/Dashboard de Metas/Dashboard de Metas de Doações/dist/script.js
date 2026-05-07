@@ -4,8 +4,9 @@ function createMeta() {
   const tituloMeta = document.getElementById('titulo-da-meta').value.trim();
   const valorAlvo = Number(document.getElementById('valor-alvo').value);
   const valorAlcancado = Number(document.getElementById('valor-alcancado').value);
+  const descricao = document.getElementById('descricao').value;
   
-  if (tituloMeta === "" || valorAlvo === 0 || valorAlcancado === 0) {
+  if (tituloMeta === "" || valorAlvo === 0 || valorAlcancado === 0 || descricao === "") {
     alert("Um ou mais campos estão vazios! Por favor preencha todos os campos para poder criar uma META!");
     return;
   }
@@ -15,6 +16,7 @@ function createMeta() {
     tituloMeta: tituloMeta, 
     valorAlvo: valorAlvo,
     valorAlcancado: valorAlcancado,
+    descricao: descricao,
     diferencaDaMeta: Math.abs(valorAlcancado - valorAlvo)
   };
   
@@ -23,6 +25,7 @@ function createMeta() {
   document.getElementById('titulo-da-meta').value = "";
   document.getElementById('valor-alvo').value = "";
   document.getElementById('valor-alcancado').value = "";
+  document.getElementById('descricao').value = "";
   
   readMetas();
 }
@@ -64,6 +67,7 @@ function readMetas() {
             <p><strong>Valor Alvo:</strong> R$${meta.valorAlvo.toFixed(2)}</p>
             <p><strong>Valor Alcançado:</strong> R$${meta.valorAlcancado.toFixed(2)}</p>
             <p>Meta batida foi batida por <strong>R$${meta.diferencaDaMeta.toFixed(2)}</strong></p>
+            <p id="descricao-da-meta-${meta.id}"><strong>Descrição: </strong>${meta.descricao}</p>
             <button id="btn-editar-meta" class="btn-editar-meta" onClick="updateMeta(${meta.id})">Editar Meta</button>
             <button id="btn-deletar-meta" class="btn-deletar-meta" onClick="deleteMeta(${meta.id})">X</button>
           </div>
@@ -81,6 +85,7 @@ function readMetas() {
             <p><strong>Valor Alvo:</strong> R$${meta.valorAlvo.toFixed(2)}</p>
             <p><strong>Valor Alcançado:</strong> R$${meta.valorAlcancado.toFixed(2)}</p>
             <p>Faltou <strong>R$${meta.diferencaDaMeta.toFixed(2)}</strong> para bater a meta</p>
+            <p id="descricao-da-meta-${meta.id}"><strong>Descrição: </strong>${meta.descricao}</p>
             <button id="btn-editar-meta" class="btn-editar-meta" onClick="updateMeta(${meta.id})">Editar Meta</button>
             <button id="btn-deletar-meta" class="btn-deletar-meta" onClick="deleteMeta(${meta.id})">X</button>
           </div>
@@ -119,6 +124,7 @@ function updateMeta(id) {
       document.getElementById('titulo-da-meta').value = meta.tituloMeta;
       document.getElementById('valor-alvo').value = meta.valorAlvo;
       document.getElementById('valor-alcancado').value = meta.valorAlcancado;
+      document.getElementById('descricao').value = meta.descricao;
       
       botaoDeSalvarEdiacao.innerHTML = "Salvar Edição da Meta";
       botaoDeSalvarEdiacao.removeAttribute('onclick');
@@ -135,8 +141,9 @@ function salvarEdicao(id) {
   const tituloMeta = document.getElementById('titulo-da-meta').value.trim();
   const valorAlvo = Number(document.getElementById('valor-alvo').value);
   const valorAlcancado = Number(document.getElementById('valor-alcancado').value);
+  const descricao = document.getElementById('descricao').value;
   
-  if (tituloMeta === "" || valorAlvo === 0 || valorAlcancado === 0) {
+  if (tituloMeta === "" || valorAlvo === 0 || valorAlcancado === 0 || descricao === "") {
     alert("Um ou mais campos estão vazios! Por favor preencha todos os campos para poder criar uma META!");
     return;
   }
@@ -146,6 +153,7 @@ function salvarEdicao(id) {
     tituloMeta: tituloMeta, 
     valorAlvo: valorAlvo,
     valorAlcancado: valorAlcancado,
+    descricao: descricao,
     diferencaDaMeta: Math.abs(valorAlcancado - valorAlvo)
   };
   
@@ -174,6 +182,7 @@ function cancelarEdicao() {
   document.getElementById('titulo-da-meta').value = "";
   document.getElementById('valor-alvo').value = "";
   document.getElementById('valor-alcancado').value = "";
+  document.getElementById('descricao').value = "";
 }
 
 function deleteMeta(id) {

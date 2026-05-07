@@ -70,7 +70,7 @@ body {
   border-bottom: 1px solid #F0F1F5;
 }
 
-.formulario-de-entrada input {
+.formulario-de-entrada input, .formulario-de-entrada textarea {
   flex: 1;
   min-width: 120px;
   padding: 9px 12px;
