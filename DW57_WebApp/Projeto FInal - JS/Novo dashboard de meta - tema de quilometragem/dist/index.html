@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Bicicleta meta de Quilômetros</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="container">
+  <div class="placar-de-resumo">
+    <div class="placares">
+      <h1>Meta de Quilômetros</h1>
+      <h2 id="total-almejado">Total de Quilômetros Almejados: 0.00 Km</h2>
+      <h2 id="total-alcancado">Total de Quilômetros Alcançados: 0.00 Km</h2>
+    </div>
+  </div>
+  <div class="formulario-de-entrada">
+    <h3 id="informacoes-meta-h3">Criar Histórico de Quilômetragem</h3>
+    <select id="seletor-de-mes">
+      <option value="">Escolha o mês da viagem</option>
+      <option value="Janeiro">Janeiro</option>
+      <option value="Fevereiro">Fevereiro</option>
+      <option value="Março">Março</option>
+      <option value="Abril">Abril</option>
+      <option value="Maio">Maio</option>
+      <option value="Junho">Junho</option>
+      <option value="Julho">Julho</option>
+      <option value="Agosto">Agosto</option>
+      <option value="Setembro">Setembro</option>
+      <option value="Outubro">Outubro</option>
+      <option value="Novembro">Novembro</option>
+      <option value="Dezembro">Dezembro</option>
+    </select>
+    <input type="text" id="titulo-da-meta" placeholder="Título da Viagem" />
+    <input type="number" id="valor-alvo" placeholder="Quilômetragem Alvo (em KM)" />
+    <input type="number" id="valor-alcancado" placeholder="Quilômetragem Alcançada (em KM)" />
+    <textarea id="descricao" rows="5" placeholder="Descrição..."></textarea>
+    <button id="botao-de-salvar" class="botao-de-salvar" onclick="createMeta()">Salvar Quilômetragem</button>
+    <button id="botao-de-cancelar-edicao" class="hidden botao-de-cancelar-edicao" onclick="cancelarEdicao()">Cancelar Edição</button>
+  </div>
+  <div class="lista-reativa">
+    <h3>Metas salvas</h3>
+    <div class="area-seletor">
+      <h3 id="titulo-para-o-seletor">Filtro de quilômetros por mês</h3>
+      <select onChange="filtrarQuilometragemPorMes()" id="filtro-por-mes">
+        <option value="">Total de Quilômetros</option>
+        <option value="Janeiro">Janeiro</option>
+        <option value="Fevereiro">Fevereiro</option>
+        <option value="Março">Março</option>
+        <option value="Abril">Abril</option>
+        <option value="Maio">Maio</option>
+        <option value="Junho">Junho</option>
+        <option value="Julho">Julho</option>
+        <option value="Agosto">Agosto</option>
+        <option value="Setembro">Setembro</option>
+        <option value="Outubro">Outubro</option>
+        <option value="Novembro">Novembro</option>
+        <option value="Dezembro">Dezembro</option>
+      </select>
+      <h2 id="total-mensal-almejado" class="hidden">teste1</h2>
+      <h2 id="total-mensal-alcancado" class="hidden">teste2</h2>
+    </div>
+    <ul id="lista-para-injecao" class="lista-para-injecao"></ul>
+    <p id="sem-metas" class="sem-metas">Nenhuma meta definida!</p>
+  </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
